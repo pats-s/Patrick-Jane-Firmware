@@ -28,6 +28,7 @@ void main()
 
         if (true == ret)            /*success?*/
         {
+        output_high(CT_COL);
             while (true)
             {
                 scheduler();        /*run scheduler forever*/

@@ -21,6 +21,14 @@ void main()
         /*Initialize system:*/
         ret &= init_hw();           /*initialize HW and create LED heartbeat task*/
         ret &= init_system();       /*initialize system and enable interrupt(s) (events)*/
+         output_high(CT_D1_BCD0);
+         output_high(CT_D1_BCD1);
+         output_high(CT_D1_BCD2);
+         output_high(CT_D1_BCD3);
+         
+         output_high(CT_D2_BCD0);
+
+         output_high(CT_COL);
         ret &= init_adc();  
         ret &= init_temp_sensor();
         /*initialize ADC sampling*/

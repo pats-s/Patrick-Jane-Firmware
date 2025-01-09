@@ -16,7 +16,7 @@
 #define CT_D2_BCD2        PIN_E2
 #define CT_D2_BCD3        PIN_E3
 
-#define CT_COL PIN_G4
+#define CT_COL            PIN_G4
 
 #define CT_D3_BCD0        PIN_D4
 #define CT_D3_BCD1        PIN_D5
