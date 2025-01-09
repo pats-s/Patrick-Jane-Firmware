@@ -5,6 +5,8 @@
 
 //List all IOs here:
 
+uint8_t floor_up_button_pin(uint8_t floor);
+uint8_t floor_down_button_pin(uint8_t floor);
 
 ///////////////////////////////////////////////////////////////////////////////
 bool init_hw(void);

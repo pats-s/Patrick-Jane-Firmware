@@ -4,6 +4,8 @@
 #include "scheduler.h"
 #include "timer.h"
 #include "adc.h"
+#include "floor_request.h"
+
 
 void main()
 {
@@ -21,7 +23,7 @@ void main()
         ret &= init_system();       /*initialize system and enable interrupt(s) (events)*/
 
         ret &= init_adc();          /*initialize ADC sampling*/
-
+        ret &= init_floor_request();
         /*. . . . . . .*/
 
         if (true == ret)            /*success?*/

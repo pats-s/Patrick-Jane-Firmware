@@ -47,6 +47,26 @@ bool init_hw(void)
     return true;
 }
 
+uint8_t floor_up_button_pin(uint8_t floor) {
+    switch (floor) {
+        case 0: return PIN_B0; // Up button for floor 0
+        case 1: return PIN_B2; // Up button for floor 1
+        case 2: return PIN_B4; // Up button for floor 2
+        case 3: return PIN_B6; // Up button for floor 3
+        default: return 0xFF;  // Invalid floor
+    }
+}
+
+uint8_t floor_down_button_pin(uint8_t floor) {
+    switch (floor) {
+        case 0: return PIN_B1; // Down button for floor 0
+        case 1: return PIN_B3; // Down button for floor 1
+        case 2: return PIN_B5; // Down button for floor 2
+        case 3: return PIN_B7; // Down button for floor 3
+        default: return 0xFF;  // Invalid floor
+    }
+}
+
 
 #if 0
 /**
