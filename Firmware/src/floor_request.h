@@ -32,7 +32,6 @@ typedef struct {
 bool init_floor_request(void);
 bool add_floor_request(uint8_t floor, direction_t dir);
 bool get_next_floor(floor_request_t *request);
-void task_read_buttons(s_task_handle_t me, s_task_msg_t **msg, void *arg);
-void task_handle_floor_requests(s_task_handle_t me, s_task_msg_t **msg, void *arg);
+
 
 #endif

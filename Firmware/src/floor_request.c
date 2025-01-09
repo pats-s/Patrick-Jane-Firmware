@@ -9,6 +9,7 @@ static floor_request_queue_t request_queue;
 // Task Prototypes
 void task_read_buttons(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void task_handle_floor_requests(s_task_handle_t me, s_task_msg_t **msg, void *arg);
+void task_update_leds(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 
 // Initialize the floor request system and create tasks
 bool init_floor_request(void) {
@@ -27,6 +28,9 @@ bool init_floor_request(void) {
         return false; // Task creation failed
     }
 
+    if(!s_task_create(true, S_TASK_NORMAL_PRIORITY, 100, task_update_leds, NULL, NULL)){
+        return false;
+    }
     return true; // Initialization successful
 }
 
@@ -99,3 +103,36 @@ void task_handle_floor_requests(s_task_handle_t me, s_task_msg_t **msg, void *ar
     s_task_flush_msgs(msg);
 #endif
 }
+
+void update_floor_leds(void) {
+    for (uint8_t floor = 0; floor < MAX_FLOORS; floor++) {
+        if (floor == current_floor) {
+            output_high(floor_led_pin(floor)); // Turn on LED for current floor
+        } else {
+            output_low(floor_led_pin(floor));  // Turn off LEDs for other floors
+        }
+    }
+}
+
+void task_update_leds(s_task_handle_t me, s_task_msg_t **msg, void *arg) {
+    update_floor_leds();
+
+    #ifdef USE_MESSAGING
+        s_task_flush_msgs(msg);
+    #endif
+}
+
+void task_update_elevator_position(s_task_handle_t me, s_task_msg_t **msg, void *arg) {
+    static uint8_t next_floor = 0; // Example: set this value dynamically based on requests
+
+    // Simulate checking if the motor has arrived at the floor
+    if (motor_arrives_at_floor(next_floor)) { 
+        current_floor = next_floor;  // Update the current floor
+        update_floor_leds();         // Update the LEDs
+    }
+
+#ifdef USE_MESSAGING
+    s_task_flush_msgs(msg);
+#endif
+}
+

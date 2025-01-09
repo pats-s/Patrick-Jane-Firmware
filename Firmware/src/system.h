@@ -11,5 +11,7 @@ typedef struct _systeminfo
 bool init_system(void);
 void init_system_info(void);
 void fill_system_params(void);
+extern uint8_t current_floor;
+
 ///////////////////////////////////////////////////////////////////////////////
 #endif

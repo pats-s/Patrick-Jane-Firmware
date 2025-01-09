@@ -5,7 +5,7 @@
 
 //Global vars:
 system_info  current_system_info;
-
+uint8_t current_floor = 0;
 
 /**
  * 
