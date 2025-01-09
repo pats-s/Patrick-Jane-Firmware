@@ -45,14 +45,14 @@ bool ds1307_read_registers(uint8_t internal_address, uint8_t* buffer, uint8_t si
 }
 
 ds1307_time_t ds1307_read_time(void) {
-    uint8_t buffer[5];
+    uint8_t buffer[4];
     ds1307_time_t time;
 
     //read from the registers
     if (ds1307_read_registers(DS1307_REG_MINUTES, buffer, 5)) {
         time.minutes = bcd_to_bin(buffer[0]);      
         time.hours = bcd_to_bin(buffer[1] & 0x3F); 
-        time.dof = bcd_to_bin(buffer[2]);
+        time.dof = bcd_to_bin(buffer[2])
         time.day = bcd_to_bin(buffer[3]);         
         time.month = bcd_to_bin(buffer[4]);    
             
@@ -128,7 +128,7 @@ void display_date() {
     // Display the date on the 7-segment displays
     set_segments(CT_D1_BCD0, segment_map[day_tens]);   // Display day tens on the first display
     set_segments(CT_D2_BCD0, segment_map[day_units]);  // Display day units on the second display
-
+    COL_ON(); // Turn on the colon LED (if applicable)
     set_segments(CT_D3_BCD0, segment_map[month_tens]); // Display month tens on the third display
     set_segments(CT_D4_BCD0, segment_map[month_units]); // Display month units on the fourth display
 }

@@ -4,6 +4,7 @@
 typedef struct {
     uint8_t minutes; // Minutes value (0–59)
     uint8_t hours;   // Hours value (0–23 or 0–12 depending on the format)
+    uint8_t dof;
     uint8_t day;
     uint8_t month;
 } ds1307_time_t;
