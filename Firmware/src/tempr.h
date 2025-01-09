@@ -14,6 +14,11 @@
 
 #define MAX_TEMPERATURE     (100.0)   //deg C
 
-float read_temperature(void);
+bool init_temp_sensor(void);
+float read_temperature1(void);
+void display_temp(void);
+
+
+
 
 #endif

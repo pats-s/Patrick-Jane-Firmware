@@ -9,6 +9,7 @@ void heart_beat_led(s_task_handle_t me, s_task_msg_t **msg, void* arg);
  * @brief Function to setup all IOs
  * 
  */
+
 void init_io_ports(void)
 {
     set_tris_a(0xFF);    /*A: all inputs*/
@@ -46,6 +47,7 @@ bool init_hw(void)
     
     return true;
 }
+
 
 
 #if 0

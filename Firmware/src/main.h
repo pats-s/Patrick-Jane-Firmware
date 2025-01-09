@@ -2,6 +2,7 @@
 #device ADC=8       /*ADC resulution in bits*/
 #device ANSI        /*ANSI C*/
 
+
 /*Chip configuration*/
 #FUSES NOWDT            //No Watch Dog Timer
 #FUSES PUT              //Power Up Timer
