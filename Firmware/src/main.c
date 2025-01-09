@@ -4,6 +4,7 @@
 #include "scheduler.h"
 #include "timer.h"
 #include "adc.h"
+#include "tempr.h"
 
 void main()
 {
@@ -16,12 +17,18 @@ void main()
     
     if (true == ret)
     {
+        SEG1_A_OFF();
+        SEG1_B_ON();
+        SEG1_C_ON();
+        SEG1_D_OFF();
+        ledon();
         /*Initialize system:*/
         ret &= init_hw();           /*initialize HW and create LED heartbeat task*/
         ret &= init_system();       /*initialize system and enable interrupt(s) (events)*/
 
-        ret &= init_adc();          /*initialize ADC sampling*/
-
+        ret &= init_adc();  
+        ret &= init_temp_sensor();
+        /*initialize ADC sampling*/
         /*. . . . . . .*/
 
         if (true == ret)            /*success?*/
