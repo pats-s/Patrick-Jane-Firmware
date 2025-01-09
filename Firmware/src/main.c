@@ -5,6 +5,7 @@
 #include "timer.h"
 #include "adc.h"
 #include "tempr.h"
+#include "interior.h"
 
 void main()
 {
@@ -22,7 +23,8 @@ void main()
         ret &= init_hw();           /*initialize HW and create LED heartbeat task*/
         ret &= init_system();       /*initialize system and enable interrupt(s) (events)*/
         ret &= init_adc();  
-        ret &= init_temp_sensor();
+       // ret &= init_interior();
+       ret &= init_interior();
         /*initialize ADC sampling*/
         /*. . . . . . .*/
 

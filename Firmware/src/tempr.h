@@ -16,6 +16,8 @@
 
 bool init_temp_sensor(void);
 float read_temperature1(void);
+void display_temp(void);
+
 
 
 

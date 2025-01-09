@@ -40,7 +40,7 @@ enabled=0
 chip=1
 D1=
 V1=
-buildcount=104
+buildcount=113
 
 [main.c]
 Type=4
@@ -59,13 +59,13 @@ Fixed=
 [Opened Files]
 1=main.c
 t1=16
-Count=10
+Count=12
 2=hardware.c
 t2=1
 3=tempr.h
 t3=1
 4=tempr.c
-t4=1
+t4=9
 5=hardware.h
 t5=1
 6=..\..\..\..\..\..\Program Files (x86)\PICC\Devices\18F67K22.h
@@ -76,8 +76,12 @@ t7=1
 t8=1
 9=adc.c
 t9=1
-10=..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdint.h
+10=main.h
 t10=1
+11=interior.c
+t11=1
+12=interior.h
+t12=1
 [..\output\misc_IOs.c]
 Type=4
 
@@ -88,7 +92,7 @@ D1_L=4
 D1_L1=[66257]Project Opened.
 D1_L2=[66782]Started Editing.
 D1_L3=[66858]Stopped Editing.
-TotalEdit=64
+TotalEdit=84
 TotalDebug=0
 D1_E=2
 D1_D=0
@@ -261,12 +265,12 @@ D15_L36=[50344]Stopped Editing.
 D15_L37=[50347]Project Closed.
 D15_L38=[50347]Project Opened.
 D16=09-01-2025
-D16_L=14
+D16_L=21
 D16_L1=[45654]Started Editing.
 D16_L2=[45954]Stopped Editing.
 D16_L3=[58615]Started Editing.
 D16_L4=[58915]Stopped Editing.
-D16_E=1
+D16_E=21
 D16_D=0
 D16_L5=[60441]Project Closed.
 D16_L6=[60441]Project Opened.
@@ -278,16 +282,32 @@ D16_L11=[63433]Started Editing.
 D16_L12=[64638]Stopped Editing.
 D16_L13=[64805]Started Editing.
 D16_L14=[65139]Stopped Editing.
+D16_L15=[69650]Started Editing.
+D16_L16=[70136]Stopped Editing.
+D16_L17=[70554]Started Editing.
+D16_L18=[70858]Stopped Editing.
+D16_L19=[73166]Started Editing.
+D16_L20=[73524]Stopped Editing.
+D16_L21=[77475]Project Closed.
 [..\output\elevator.c]
 Type=4
 [..\..\..\UART_int_Tasks\Firmware\output\elevator.c]
 Type=4
 
 [ExtraIncludes]
-Count=1
+Count=10
 1=ds1307=c:\users\patri\desktop\project\firmware\src\ds1307.h
+2=ds1307=c:\users\patri\desktop\project\firmware\src\hardware.h
+3=ds1307=c:\users\patri\desktop\project\firmware\src\scheduler.h
+4=ds1307=c:\users\patri\desktop\project\firmware\src\main.h
+5=interior=c:\users\patri\desktop\project\firmware\src\main.h
+6=interior=c:\users\patri\desktop\project\firmware\src\hardware.h
+7=interior=c:\users\patri\desktop\project\firmware\src\ds1307.h
+8=interior=c:\users\patri\desktop\project\firmware\src\tempr.h
+9=interior=c:\users\patri\desktop\project\firmware\src\scheduler.h
+10=interior=c:\users\patri\desktop\project\firmware\src\interior.h
 [Units]
-Count=7
+Count=9
 1=main
 2=hardware
 3=system
@@ -295,4 +315,6 @@ Count=7
 5=scheduler
 6=adc
 7=tempr
+8=DS1307
+9=interior
 Link=1
