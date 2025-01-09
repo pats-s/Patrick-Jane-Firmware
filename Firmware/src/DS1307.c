@@ -108,6 +108,7 @@ void display_time() {
 
 
 void display_date() {
+    COL_OFF();
     // Read the date and month from the DS1307
     ds1307_time_t time = ds1307_read_time();
 
