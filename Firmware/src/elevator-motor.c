@@ -57,6 +57,9 @@ void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg){
         output_low(M_Dir_1);
         output_low(M_Dir_2);
         output_low(M_Speed_Low);
+        output_low(Flr_LED_Dn);
+        output_low(Flr_LED_Up);
+
         in_Use=false;
         return;
     }
@@ -65,10 +68,12 @@ void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg){
     {
         output_high(M_Dir_1);
         output_high(M_Speed_Low);
+        output_high(Flr_LED_Up);
         current_floor++;
 
     }
     else{ // we need to go down
+        output_high(Flr_LED_Dn);
         output_high(M_Dir_2);
         output_high(M_Speed_Low);
         current_floor--;
