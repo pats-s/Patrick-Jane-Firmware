@@ -24,6 +24,7 @@ uint8_t bcd_to_bin(uint8_t bcd) {
     return ((bcd >> 4) * 10) + (bcd & 0x0F);
 }
 
+//this function to read from the registers of the RTC nad put them in the buffer
 bool ds1307_read_registers(uint8_t internal_address, uint8_t* buffer, uint8_t size) {
     uint8_t ack_state = 0;
 
@@ -44,6 +45,7 @@ bool ds1307_read_registers(uint8_t internal_address, uint8_t* buffer, uint8_t si
     return false;
 }
 
+//this function to get the values from the buffer and put thme in a struct
 ds1307_time_t ds1307_read_time(void) {
     uint8_t buffer[5];
     ds1307_time_t time;
@@ -69,67 +71,57 @@ ds1307_time_t ds1307_read_time(void) {
 }
 void set_segments(uint8_t base_pin, uint8_t segments) {
     // Turn off all segments first
-    output_low(base_pin);           // Segment A
-    output_low(base_pin + 1);       // Segment B
-    output_low(base_pin + 2);       // Segment C
-    output_low(base_pin + 3);       // Segment D
+    output_low(base_pin);           
+    output_low(base_pin + 1);       
+    output_low(base_pin + 2);       
+    output_low(base_pin + 3);       
 
-    // Turn on the segments based on the bitmask
+    //bitmask op to turn on the desired segment
     if (segments & 0x01) output_high(base_pin);         
     if (segments & 0x02) output_high(base_pin + 1);     
     if (segments & 0x04) output_high(base_pin + 2);     
     if (segments & 0x08) output_high(base_pin + 3);     
 }
 void display_time() {
-    // Read the time from the DS1307
     ds1307_time_t time = ds1307_read_time();
 
-    // Check for invalid time values (0xFF indicates an error)
     if (time.hours == 0xFF || time.minutes == 0xFF) {
-        // Display error on the 7-segment (e.g., show "EE" for error)
-        set_segments(CT_D1_BCD0, 0xE); // Display 'E' on the first display
-        set_segments(CT_D2_BCD0, 0xE); // Display 'E' on the second display
+        set_segments(CT_D1_BCD0, 0xE); //in case of error display the letter e
+        set_segments(CT_D2_BCD0, 0xE); //in case of error display the letter e
         return;
     }
 
-    // Extract digits for hours and minutes
-    uint8_t hour_tens = time.hours / 10;  // Tens digit of hours
-    uint8_t hour_units = time.hours % 10; // Units digit of hours
-    uint8_t min_tens = time.minutes / 10; // Tens digit of minutes
-    uint8_t min_units = time.minutes % 10; // Units digit of minutes
+    uint8_t hour_tens = time.hours / 10;  
+    uint8_t hour_units = time.hours % 10; 
+    uint8_t min_tens = time.minutes / 10; 
+    uint8_t min_units = time.minutes % 10;
 
-    // Display the time on the 7-segment displays
-    set_segments(CT_D1_BCD0, segment_map[hour_tens]);  // Display hour tens on the first display
-    set_segments(CT_D2_BCD0, segment_map[hour_units]); // Display hour units on the second display
+    set_segments(CT_D1_BCD0, segment_map[hour_tens]);  
+    set_segments(CT_D2_BCD0, segment_map[hour_units]); 
     COL_ON();
-    set_segments(CT_D3_BCD0, segment_map[min_tens]);   // Display minute tens on the third display
-    set_segments(CT_D4_BCD0, segment_map[min_units]);  // Display minute units on the fourth display
+    set_segments(CT_D3_BCD0, segment_map[min_tens]);   
+    set_segments(CT_D4_BCD0, segment_map[min_units]);  
 }
 
 
 void display_date() {
     COL_OFF();
-    // Read the date and month from the DS1307
     ds1307_time_t time = ds1307_read_time();
 
-    // Check for invalid date values (0xFF indicates an error)
     if (time.day == 0xFF || time.month == 0xFF) {
-        // Display error on the 7-segment (e.g., show "EE" for error)
-        set_segments(CT_D1_BCD0, 0xE); // Display 'E' on the first display
-        set_segments(CT_D2_BCD0, 0xE); // Display 'E' on the second display
+        set_segments(CT_D1_BCD0, 0xE); //in case of error display the letter e
+        set_segments(CT_D2_BCD0, 0xE); //in case of error display the letter e
         return;
     }
 
-    // Extract digits for date and month
-    uint8_t day_tens = time.day / 10;  // Tens digit of day
-    uint8_t day_units = time.day % 10; // Units digit of day
-    uint8_t month_tens = time.month / 10; // Tens digit of month
-    uint8_t month_units = time.month % 10; // Units digit of month
+    uint8_t day_tens = time.day / 10;  
+    uint8_t day_units = time.day % 10; 
+    uint8_t month_tens = time.month / 10; 
+    uint8_t month_units = time.month % 10;
 
-    // Display the date on the 7-segment displays
-    set_segments(CT_D1_BCD0, segment_map[day_tens]);   // Display day tens on the first display
-    set_segments(CT_D2_BCD0, segment_map[day_units]);  // Display day units on the second display
+    set_segments(CT_D1_BCD0, segment_map[day_tens]);   
+    set_segments(CT_D2_BCD0, segment_map[day_units]);  
 
-    set_segments(CT_D3_BCD0, segment_map[month_tens]); // Display month tens on the third display
-    set_segments(CT_D4_BCD0, segment_map[month_units]); // Display month units on the fourth display
+    set_segments(CT_D3_BCD0, segment_map[month_tens]); 
+    set_segments(CT_D4_BCD0, segment_map[month_units]);
 }

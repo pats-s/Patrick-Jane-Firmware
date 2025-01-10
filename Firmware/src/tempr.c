@@ -74,10 +74,10 @@ void display_temp() {
 
 void set_segments(uint8_t base_pin, uint8_t segments) {
     // Turn off all segments first
-    output_low(base_pin);           // Segment A
-    output_low(base_pin + 1);       // Segment B
-    output_low(base_pin + 2);       // Segment C
-    output_low(base_pin + 3);       // Segment D
+    output_low(base_pin);           
+    output_low(base_pin + 1);       
+    output_low(base_pin + 2);       
+    output_low(base_pin + 3);       
 
     // Turn on the segments based on the bitmask
     if (segments & 0x01) output_high(base_pin);         
