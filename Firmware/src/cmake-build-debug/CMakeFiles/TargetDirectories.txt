@@ -1,0 +1,3 @@
+C:/Users/patri/Desktop/Project/Firmware/src/cmake-build-debug/CMakeFiles/src.dir
+C:/Users/patri/Desktop/Project/Firmware/src/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/patri/Desktop/Project/Firmware/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
