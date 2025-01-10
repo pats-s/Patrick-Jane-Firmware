@@ -4,19 +4,21 @@
 #include "scheduler.h"
 
 
+/*locla variables*/
 static floor_t current_floor = FLOOR_GF;
 static bool elevator_status = false;
-
 static bool init_done = false;
-static bool in_motion = false;
+static bool in_Use = false;
 static floor_t target_floor = FLOOR_GF;
 
+/*local prototypes*/
 void elevator_init_task(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void check_for_inside(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void check_for_outside(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void update_bcd(void);
 void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void set_segments(uint8_t base_pin, uint8_t segments);
+
 
 bool init_elevator_tasks(void) {
     bool ret = true;
@@ -31,7 +33,7 @@ bool init_elevator_tasks(void) {
 
 
 void elevator_init_task(s_task_handle_t me, s_task_msg_t **msg, void *arg) {
-    if (init_done) return;
+    if (init_done) return; // to execute it just once
 
     output_low(M_Speed_High);
     output_low(M_Speed_Low);
@@ -48,14 +50,17 @@ void elevator_init_task(s_task_handle_t me, s_task_msg_t **msg, void *arg) {
     init_done = true;
 }
 
+
 void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg){
     elevator_status = (current_floor != target_floor);
-    if(current_floor == target_floor){
+    if(current_floor == target_floor){ //when we arrive to the target floor we stop the motor
         output_low(M_Dir_1);
         output_low(M_Dir_2);
         output_low(M_Speed_Low);
+        in_Use=false;
         return;
     }
+    in_Use = true;
     if(current_floor < target_floor) // we need to go up
     {
         output_high(M_Dir_1);
@@ -68,10 +73,11 @@ void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg){
         output_high(M_Speed_Low);
         current_floor--;
     }
-    update_bcd();
+    update_bcd(); //update the floor number
 }
 
 void check_for_outside(s_task_handle_t me, s_task_msg_t **msg, void *arg){
+    if(in_Use == true) return;
     if(!input(Flr0_Btn_Up)){
        target_floor = FLOOR_GF;
     }
@@ -88,6 +94,7 @@ void check_for_outside(s_task_handle_t me, s_task_msg_t **msg, void *arg){
 
 
 void check_for_inside(s_task_handle_t me, s_task_msg_t **msg, void *arg){
+     if(in_Use == true) return;
       if(!input(Cab_GF)){
        target_floor = FLOOR_GF;
     }
