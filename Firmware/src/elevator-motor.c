@@ -3,16 +3,13 @@
 #include "hardware.h"
 #include "scheduler.h"
 
-// Current state of the elevator
-static floor_t current_floor = FLOOR_GF;
 
-// Task: Initialize the elevator system
+static floor_t current_floor = FLOOR_GF;
+static bool elevator_status = false;
+
 static bool init_done = false;
 static bool in_motion = false;
 static floor_t target_floor = FLOOR_GF;
-
-
-
 
 void elevator_init_task(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void check_for_inside(s_task_handle_t me, s_task_msg_t **msg, void *arg);
@@ -21,7 +18,6 @@ void update_bcd(void);
 void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg);
 void set_segments(uint8_t base_pin, uint8_t segments);
 
-// Function to initialize the task
 bool init_elevator_tasks(void) {
     bool ret = true;
     ret &=  s_task_create(true, S_TASK_NORMAL_PRIORITY,1000,elevator_init_task,NULL,NULL);
@@ -35,9 +31,8 @@ bool init_elevator_tasks(void) {
 
 
 void elevator_init_task(s_task_handle_t me, s_task_msg_t **msg, void *arg) {
-    if (init_done) return; // Skip if already initialized
+    if (init_done) return;
 
-    // Perform initialization
     output_low(M_Speed_High);
     output_low(M_Speed_Low);
     output_low(M_Dir_1);
@@ -50,11 +45,11 @@ void elevator_init_task(s_task_handle_t me, s_task_msg_t **msg, void *arg) {
 
     current_floor = FLOOR_GF;
 
-    // Mark as done
     init_done = true;
 }
 
 void check_for_req(s_task_handle_t me, s_task_msg_t **msg, void *arg){
+    elevator_status = (current_floor != target_floor);
     if(current_floor == target_floor){
         output_low(M_Dir_1);
         output_low(M_Dir_2);
@@ -126,8 +121,6 @@ void update_bcd(void){
     }
 }
 
-
-// Helper function to control the segments of a 7-segment display
 void set_segments(uint8_t base_pin, uint8_t segments) {
     output_low(base_pin);           // Segment A
     output_low(base_pin + 1);       // Segment B

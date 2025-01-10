@@ -4,8 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
-// Elevator States
 typedef enum {
     FLOOR_GF,
     FLOOR_F1,
@@ -13,7 +11,7 @@ typedef enum {
     FLOOR_F3
 } floor_t;
 
-// Functions
+// prototypes
 bool init_elevator_tasks(void);
 
 
