@@ -40,7 +40,7 @@ enabled=0
 chip=1
 D1=
 V1=
-buildcount=118
+buildcount=145
 
 [main.c]
 Type=4
@@ -59,7 +59,7 @@ Fixed=
 [Opened Files]
 1=main.c
 t1=16
-Count=12
+Count=13
 2=hardware.c
 t2=1
 3=tempr.h
@@ -79,9 +79,11 @@ t9=1
 10=main.h
 t10=1
 11=interior.c
-t11=1
+t11=5
 12=interior.h
 t12=1
+13=elevator-motor.c
+t13=1
 [..\output\misc_IOs.c]
 Type=4
 
@@ -300,7 +302,7 @@ Type=4
 Type=4
 
 [ExtraIncludes]
-Count=10
+Count=14
 1=ds1307=c:\users\patri\desktop\project\firmware\src\ds1307.h
 2=ds1307=c:\users\patri\desktop\project\firmware\src\hardware.h
 3=ds1307=c:\users\patri\desktop\project\firmware\src\scheduler.h
@@ -311,8 +313,12 @@ Count=10
 8=interior=c:\users\patri\desktop\project\firmware\src\tempr.h
 9=interior=c:\users\patri\desktop\project\firmware\src\scheduler.h
 10=interior=c:\users\patri\desktop\project\firmware\src\interior.h
+11=elevator-motor=c:\users\patri\desktop\project\firmware\src\elevator-motor.h
+12=elevator-motor=c:\users\patri\desktop\project\firmware\src\hardware.h
+13=elevator-motor=c:\users\patri\desktop\project\firmware\src\main.h
+14=elevator-motor=c:\users\patri\desktop\project\firmware\src\scheduler.h
 [Units]
-Count=9
+Count=10
 1=main
 2=hardware
 3=system
@@ -322,4 +328,5 @@ Count=9
 7=tempr
 8=DS1307
 9=interior
+10=elevator-motor
 Link=1

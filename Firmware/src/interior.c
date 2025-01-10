@@ -14,7 +14,12 @@ bool init_interior(void)
 {
     bool ret;
     ret &= s_task_create(1,S_TASK_NORMAL_PRIORITY,5000,display,NULL,NULL);
-    ret &= s_task_create(1,S_TASK_NORMAL_PRIORITY,1000,display_floor,NULL,NULL);
+    output_low(M_Speed_High);
+    output_low(M_Speed_Low);
+    output_low(M_Dir_1);
+    output_low(M_Dir_2);
+
+    
     return ret;
 }
 

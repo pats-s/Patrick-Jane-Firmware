@@ -6,6 +6,7 @@
 #include "adc.h"
 #include "tempr.h"
 #include "interior.h"
+#include "elevator-motor.h"
 
 void main()
 {
@@ -25,6 +26,7 @@ void main()
         ret &= init_adc();  
        // ret &= init_interior();
        ret &= init_interior();
+       ret &= init_elevator_tasks();
         /*initialize ADC sampling*/
         /*. . . . . . .*/
 
